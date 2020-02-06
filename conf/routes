@@ -3,6 +3,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /result                     controllers.HomeController.result
+GET     /products                     controllers.HomeController.products
+
+GET     /expensive/:limit               controllers.HomeController.mostExpensive(limit: Int)
+
+GET     /assembled                    controllers.HomeController.alreadyAssembled
 
       
