@@ -4,5 +4,5 @@ case class Solution(
   descriptionFilter: Option[String],
   productsNumber: Option[Int],
   trucksNumber: Option[Int],
-  trucks: Option[List[Truck]]
+  trucks: Option[Seq[Truck]]
 )

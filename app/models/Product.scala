@@ -1,5 +1,7 @@
 package models
 
+import play.api.libs.json.{Json, Reads}
+
 case class Product (
   id: Int,
   ean: String,
@@ -11,6 +13,10 @@ case class Product (
   dimension: Option[Dimension],
 )
 
+case class Products(
+  products: Seq[Product]
+)
+
 object Product {
-  ???
+  implicit val parse = Json.reads[Product]
 }
