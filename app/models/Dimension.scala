@@ -1,6 +1,6 @@
 package models
 
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Json, Reads, Writes}
 
 case class Dimension(
   width: Double,
@@ -10,4 +10,5 @@ case class Dimension(
 
 object Dimension {
   implicit val read: Reads[Dimension] = Json.reads[Dimension]
+  implicit val write: Writes[Dimension] = Json.writes[Dimension]
 }

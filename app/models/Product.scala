@@ -1,6 +1,6 @@
 package models
 
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Json, Reads, Writes}
 
 case class Product (
   id: Int,
@@ -15,5 +15,7 @@ case class Product (
 
 object Product {
   implicit val read: Reads[Product] = Json.reads[Product]
+  implicit val write: Writes[Product] = Json.writes[Product]
   implicit val listRead: Reads[Seq[Product]] = Reads.seq[Product]
+  implicit val listWrite: Writes[Seq[Product]] = Writes.seq[Product]
 }

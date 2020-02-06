@@ -17,7 +17,7 @@ class HomeController @Inject()(
   def products: Action[AnyContent] = Action.async {
     for {
       products <- resultService.getProducts
-    } yield Ok(s"$products")
+    } yield Ok(Json.toJson(products))
   }
 
   def mostExpensive(limit: Int): Action[AnyContent] = Action.async {
@@ -25,7 +25,7 @@ class HomeController @Inject()(
       products <- resultService.getProducts
     } yield {
       val mostExpensiveProducts = resultService.filterMostExpensive(limit, products)
-      Ok(s"$mostExpensiveProducts")
+      Ok(Json.toJson(mostExpensiveProducts))
     }
   }
 
@@ -34,7 +34,7 @@ class HomeController @Inject()(
       products <- resultService.getProducts
     } yield {
       val alreadyAssembledProducts = resultService.assembledProducts(products)
-      Ok(s"$alreadyAssembledProducts")
+      Ok(Json.toJson(alreadyAssembledProducts))
     }
   }
 }
