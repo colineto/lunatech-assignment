@@ -1,13 +1,13 @@
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Reads}
 
 case class Dimension(
-  width: Int,
-  depth: Int,
-  height: Int,
+  width: Double,
+  depth: Double,
+  height: Double,
 )
 
 object Dimension {
-  implicit val parse = Json.reads[Dimension]
+  implicit val read: Reads[Dimension] = Json.reads[Dimension]
 }
