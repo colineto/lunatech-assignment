@@ -1,22 +1,19 @@
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Reads}
 
 case class Product (
   id: Int,
   ean: String,
   name: String,
   description: Option[String],
-  price: Double,
+  price: Option[Double],
   assembled: Boolean,
   weight: Option[Double],
   dimension: Option[Dimension],
 )
 
-case class Products (
-  products: Seq[Product]
-)
-
 object Product {
-  implicit val parse = Json.reads[Product]
+  implicit val read: Reads[Product] = Json.reads[Product]
+  implicit val listRead: Reads[Seq[Product]] = Reads.seq[Product]
 }
