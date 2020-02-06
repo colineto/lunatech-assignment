@@ -1,6 +1,6 @@
 package models
 
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.Json
 
 case class Product (
   id: Int,
@@ -13,7 +13,7 @@ case class Product (
   dimension: Option[Dimension],
 )
 
-case class Products(
+case class Products (
   products: Seq[Product]
 )
 

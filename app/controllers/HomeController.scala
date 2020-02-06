@@ -9,13 +9,14 @@ import scala.concurrent.ExecutionContext
 class HomeController @Inject()(
   cc: ControllerComponents,
   resultService: ResultService
-)(implicit context: ExecutionContext)
-  extends AbstractController(cc) {
+)(implicit context: ExecutionContext) extends AbstractController(cc) {
 
-  // should launch product service and return assignment results
   def result: Action[AnyContent] = Action.async {
-    resultService.getProducts.map { products =>
-      Ok(s"$products")
+    for {
+      products <- resultService.getProducts
+    } yield {
+      val mostExpensiveProducts = resultService.filterMostExpensive(15, products)
+      Ok(s"$mostExpensiveProducts")
     }
   }
 }

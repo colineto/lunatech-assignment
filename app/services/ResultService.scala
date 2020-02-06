@@ -1,14 +1,12 @@
 package services
 
-import play.api.Logger
 import javax.inject._
 import models.Products
 import play.api.Configuration
-import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue, Json}
-import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
+import play.api.libs.json.Json
+import play.api.libs.ws.WSClient
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.parsing.input.Reader
 
 
 @Singleton
@@ -22,17 +20,20 @@ class ResultService @Inject()(
     conf.get[String]("token.key") -> conf.get[String]("token.value")
   }
 
-  // get products list
-  def getProducts: Future[JsResult[Products]] = {
+  def getProducts: Future[Products] = {
     implicit val parse = Json.reads[Products]
     ws.url(s"$apiUrl/products")
     .withHttpHeaders(headers)
     .get()
     .map {response =>
-      response.json.validate[Products]
+      response.json.as[Products]
     }
   }
 
-  // then compute to answer assignment
+  def filterMostExpensive(num: Int, products: Products): Seq[Product] =
+    products.products.sortBy(_.price).takeRight(num)
+
+  def assembledProducts(products: Products): Seq[Product] =
+    products.products.filter(_.assembled).sortBy(_.name).distinct
 
 }
