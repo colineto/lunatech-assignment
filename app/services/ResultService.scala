@@ -38,6 +38,7 @@ class ResultService @Inject()(
 
     productsPromise.map {
       case Right(products) => filterProductsBy(products, sort, order, assembled, limit)
+      // TODO: need a Left case here ...
     }
   }
 

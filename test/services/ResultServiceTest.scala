@@ -36,4 +36,6 @@ class ResultServiceTest extends WordSpec with MockitoSugar{
         Seq(products.head, products(1), products(3), products(2))
     }
   }
+
+  // TODO: getProducts tests mostly for http and js errors
 }
