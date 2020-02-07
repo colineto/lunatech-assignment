@@ -3,7 +3,6 @@ package services
 import javax.inject._
 import models.Product
 import play.api.Configuration
-import play.api.http.HttpErrorHandler
 import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.libs.ws.WSClient
 
