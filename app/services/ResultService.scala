@@ -3,6 +3,8 @@ package services
 import javax.inject._
 import models.Product
 import play.api.Configuration
+import play.api.http.HttpErrorHandler
+import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.libs.ws.WSClient
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -26,11 +28,17 @@ class ResultService @Inject()(
       .withHttpHeaders(headers)
       .get()
       .map {response =>
-        response.json.as[Seq[Product]]
+        response.status match {
+          case 200 => response.json.validate[Seq[Product]] match {
+            case JsSuccess(value, _) => Right(value)
+            case JsError(e) => Left(Json.obj({"error" -> s"response validation: $e"}))
+          }
+          case _ => Left(Json.obj({"error" -> "response status"}))
+        }
       }
 
-    productsPromise.map { products =>
-      filterProductsBy(products, sort, order, assembled, limit)
+    productsPromise.map {
+      case Right(products) => filterProductsBy(products, sort, order, assembled, limit)
     }
   }
 
