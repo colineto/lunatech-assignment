@@ -3,6 +3,5 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /result                     controllers.HomeController.result
-
-      
+GET     /products                       controllers.HomeController.products(assembled: Boolean = false, limit: Option[Int])
+GET     /products/assembled             controllers.HomeController.products(assembled: Boolean = true, limit: Option[Int])
