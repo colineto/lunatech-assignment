@@ -21,19 +21,31 @@ class ResultService @Inject()(
     key -> token
   }
 
-  def getProducts: Future[Seq[Product]] = {
-    ws.url(s"$apiUrl/products")
-    .withHttpHeaders(headers)
-    .get()
-    .map {response =>
-      response.json.as[Seq[Product]]
+  def getProducts(sort: Option[String], order: Option[String], assembled: Boolean, limit: Option[Int]): Future[Seq[Product]] = {
+    val productsPromise = ws.url(s"$apiUrl/products")
+      .withHttpHeaders(headers)
+      .get()
+      .map {response =>
+        response.json.as[Seq[Product]]
+      }
+
+    productsPromise.map { products =>
+      filterProductsBy(products, sort, order, assembled, limit)
     }
   }
 
-  def filterMostExpensive(num: Int, products: Seq[Product]): Seq[Product] =
-    products.sortBy(_.price)(Ordering[Option[Double]].reverse).take(num)
+  // TODO: When more filters find a better way to filter maybe via case class filters
+  def filterProductsBy(products: Seq[Product], sort: Option[String], order: Option[String], assembled: Boolean, limit: Option[Int]): Seq[Product] = {
+    val sortBy = sort.getOrElse("price")
+    val ordering = order.getOrElse("asc")
 
-  def assembledProducts(products: Seq[Product]): Seq[Product] =
-    products.filter(_.assembled).sortBy(_.name).distinct
-
+    val filteredProducts = if(assembled) products.filter(_.assembled) else products
+    val sortedProducts = {
+      // when alphabetical sort also drop duplicated names
+      if(sortBy.equals("name")) filteredProducts.groupBy(_.name).map(_._2.head).toSeq.sortBy(_.name) // TODO: handle non european characters when alphabetically ordering
+      else filteredProducts.sortBy(_.price)
+    }
+    val orderedProducts = if(ordering.equals("desc")) sortedProducts.reverse else sortedProducts
+    limit match { case Some(l) => orderedProducts.take(l) case None => orderedProducts}
+  }
 }
