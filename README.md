@@ -6,11 +6,15 @@ It allows applying filters and specific queries on them.
 
 ### External API used for that project
 The external API is LunaFactory available at http://factory.lunatech.fr/  
-Documentation : http://factory.lunatech.fr/docs/swagger-ui/index.html?url=/assets/swagger/swagger.json#/
+Documentation : http://factory.lunatech.fr/docs/swagger-ui/index.html?url=/assets/swagger/swagger.json#/  
+To connect you'll need to add your header to the request. It corresponds to two environnement variables :
+* TOKEN_KEY
+* TOKEN_VALUE
 
 ## Launch the project
 Move into Lunatech directory  
-Then run `sbt run`
+Then run `sbt run`   
+Don't forget to specify the header needed to connect with the environnement variables TOKEN_KEY and TOKEN_VALUE
 
 ## How to use it
 This website runs on localhost:9000
