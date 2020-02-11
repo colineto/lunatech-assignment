@@ -1,10 +1,10 @@
 # LunaTech Assignment - LunaFactory
 
 ## The project
-This project is an API that enables querying products from an external API.  
+This Scala PLay2 project is an API that enables querying products from an external API.  
 It allows applying filters and specific queries on them.  
 
-### External API used for that project
+#### External API used for that project
 The external API is LunaFactory available at http://factory.lunatech.fr/  
 Documentation : http://factory.lunatech.fr/docs/swagger-ui/index.html?url=/assets/swagger/swagger.json#/  
 To connect you'll need to add your header to the request. It corresponds to two environnement variables :
@@ -12,9 +12,13 @@ To connect you'll need to add your header to the request. It corresponds to two 
 * TOKEN_VALUE
 
 ## Launch the project
-Move into Lunatech directory  
-Then run `sbt run`   
+Into Lunatech directory  
+Run `sbt run`   
 Don't forget to specify the header needed to connect with the environnement variables TOKEN_KEY and TOKEN_VALUE
+
+#### Launch tests 
+Into Lunatech directory  
+Run `sbt test`
 
 ## How to use it
 This website runs on localhost:9000
