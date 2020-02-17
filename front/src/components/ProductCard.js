@@ -4,12 +4,15 @@ import { Card } from "antd";
 
 const { Meta } = Card;
 
-const ProductCard = ( {product} ) => (
+const ProductCard = ({ product }) => (
   <Card className="Card">
     <Meta
       title={product.name}
       description={product.description}
     />
+    {product.price &&
+      product.price + ' $'
+    }
   </Card>
 );
 
