@@ -1,21 +1,20 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import '../assets/Filters.css';
+import { sortBy, orderBy, defaultFilters} from "./constants";
 import { Checkbox, Radio } from "antd";
 
-const Filters = ({ updateFilters }) => {
-  const filters = {'assembled': false, 'sort': 'price', 'order': 'asc'};
-  const sorts = ['price', 'name'];
-  const orders = ['asc', 'desc'];
+const filters = defaultFilters;
 
-  const [sort, setSort] = useState(sorts[0]);
-  const [order, setOrder] = useState(orders[0]);
+const Filters = ({ updateFilters }) => {
+  const [sort, setSort] = useState(sortBy[0]);
+  const [order, setOrder] = useState(orderBy[0]);
 
   const setFilters = useCallback((name, value) =>{
     if(name === 'sort') setSort(value);
     if(name === 'order') setOrder(value);
     filters[name] = value;
     updateFilters(filters);
-  }, [filters, updateFilters]);
+  }, [updateFilters]);
 
   return (
     <div className="Filters-wrapper">
@@ -32,8 +31,8 @@ const Filters = ({ updateFilters }) => {
         onChange={e => setFilters('sort', e.target.value)}
       >
         <div className="Filter-content"> Sort items by </div>
-        {sorts.map(f =>
-          <Radio value={f}> {f} </Radio>
+        {sortBy.map((f, idx) =>
+          <Radio key={idx} value={f}> {f} </Radio>
         )}
       </Radio.Group>
 
@@ -43,8 +42,8 @@ const Filters = ({ updateFilters }) => {
         onChange={e => setFilters('order', e.target.value)}
       >
         <div className="Filter-content"> Order items by </div>
-        {orders.map(o =>
-          <Radio value={o}> {o} </Radio>
+        {orderBy.map((o, idx) =>
+          <Radio key={idx} value={o}> {o} </Radio>
         )}
       </Radio.Group>
     </div>

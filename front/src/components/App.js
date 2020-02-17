@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/App.css';
 import axios from 'axios';
 import ProductCard from "./ProductCard";
 import Filters from "./Filters";
+import { defaultFilters } from "./constants";
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState({'assembled': false, 'sort': 'price', 'order': 'asc'});
+  const [filters, setFilters] = useState(defaultFilters);
   console.log(filters);
 
   useEffect( () => {
@@ -20,7 +21,7 @@ const App = () => {
       if(response.status === 200) setData(response.data);
     }
     fetchData()
-  }, [filters]);
+  }, [filters, setFilters]);
 
   return(
     <div className="App">
@@ -31,7 +32,7 @@ const App = () => {
         <Filters updateFilters={setFilters} />
         <div className="App-cards">
           {data.map(product =>
-            <ProductCard product={product} />
+            <ProductCard key={product.id} product={product} />
           )}
         </div>
       </div>
