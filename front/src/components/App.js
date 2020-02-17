@@ -20,9 +20,7 @@ const App = () => {
         LunaFactory Furniture
       </header>
       <div className="App-wrapper">
-        <div className="App-filters">
-          <Filters />
-        </div>
+        <Filters />
         <div className="App-cards">
           {data.map(product =>
             <ProductCard product={product} />

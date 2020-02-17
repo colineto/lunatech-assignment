@@ -1,9 +1,10 @@
 .Filters-wrapper {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    margin: 20px 40px;
+    justify-content: space-evenly;
+    margin: 20px 30px 40px;
 }
 
 .Filters {
