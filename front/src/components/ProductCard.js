@@ -5,12 +5,12 @@ import { Card } from "antd";
 const { Meta } = Card;
 
 const ProductCard = ( {product} ) => (
-    <Card className="Card">
-        <Meta
-            title={product.name}
-            description={product.description}
-        />
-    </Card>
+  <Card className="Card">
+    <Meta
+      title={product.name}
+      description={product.description}
+    />
+  </Card>
 );
 
 export default ProductCard;

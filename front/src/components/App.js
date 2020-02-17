@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../assets/App.css';
 import axios from 'axios';
 import ProductCard from "./ProductCard";
+import Filters from "./Filters";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -14,16 +15,21 @@ const App = () => {
   }, []);
 
   return(
-      <div className="App">
-        <header className="App-header">
-          LunaFactory Furniture
-        </header>
-        <div className="App-body">
+    <div className="App">
+      <header className="App-header">
+        LunaFactory Furniture
+      </header>
+      <div className="App-wrapper">
+        <div className="App-filters">
+          <Filters />
+        </div>
+        <div className="App-cards">
           {data.map(product =>
-              <ProductCard product={product} />
+            <ProductCard product={product} />
           )}
         </div>
       </div>
+    </div>
   );
 };
 

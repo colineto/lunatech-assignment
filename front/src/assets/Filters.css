@@ -1,0 +1,11 @@
+.Filters-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 40px;
+}
+
+.Filters {
+    font-size: 16px;
+}
